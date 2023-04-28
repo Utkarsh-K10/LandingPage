@@ -1,5 +1,5 @@
 import * as React from "react"
-import { AppBar, Toolbar, Typography } from "@mui/material"
+import { AppBar, Tab, Tabs, Toolbar, Typography } from "@mui/material"
 import { DrawerComp } from "./DrawerComp"
 export const Header = () => {
     return (
@@ -7,6 +7,10 @@ export const Header = () => {
             <AppBar>
                 <Toolbar>
                     <Typography>Navbar</Typography>
+                    <Tabs>
+                        <Tab label="About US"/>
+                        <Tab label="Admission"/>
+                    </Tabs>
                 </Toolbar>
             <DrawerComp/>
             </AppBar>
