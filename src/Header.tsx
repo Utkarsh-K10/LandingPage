@@ -1,12 +1,11 @@
 import * as React from "react"
-import { AppBar, Box, Link, Tab, Tabs, Toolbar, Typography} from "@mui/material"
-// import { DrawerComp } from "./DrawerComp"
+import { AppBar, Box, Link, Tab, Tabs, Toolbar, Typography } from "@mui/material"
 import logo from "../src/assets/rkmslogo2.png"
 
 export const Header = () => {
     return (
         <React.Fragment>
-            <AppBar sx={{background:"#ea80fc"}}>
+            <AppBar sx={{ background: "#f1f8e9" }}>
                 <Toolbar>
                     <Link href="/">
                         <Box
@@ -14,15 +13,26 @@ export const Header = () => {
                             sx={{ height: 96 }}
                             alt="logo"
                             src={logo}
+                            alignItems={"center"}
                         />
                     </Link>
-                    <Typography variant="h4" fontFamily={"revert"} fontWeight={10} fontSize={45} color={"#4a148c"} alignItems={"center"} margin={"auto"}> R K Memorial Hr. Sec. School</Typography>
+                    <Typography
+                        variant="h4"
+                        fontFamily={"revert"}
+                        fontWeight={10}
+                        fontSize={45}
+                        color={"#2c387e"}
+                        alignItems={"center"}
+                        margin={"auto"}
+                    >
+                        R K Memorial Hr. Sec. School
+                    </Typography>
                     <>
-                        <Tabs sx={{marginLeft:"auto"}}>
+                        <Tabs sx={{ marginLeft: "auto" }}>
                             <Tab label="About US" />
                             <Tab label="Admission" />
                             <Tab label="Gallery" />
-                            <Tab label="Facilities"/>
+                            <Tab label="Facilities" />
                         </Tabs>
                     </>
                 </Toolbar>

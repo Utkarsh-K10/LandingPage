@@ -1,7 +1,7 @@
 import './App.css'
-import { Header } from './Header'
+import HomePage from './components/HomePage'
 
 export const App = ()=> {
-  return (<Header/>)
+  return (<HomePage/>)
 }
 
