@@ -1,12 +1,13 @@
-import React from 'react'
 import Carousel from 'react-material-ui-carousel'
 import CarosItem from './CaroselTem'
-import { Box } from '@mui/material'
+import { Box} from '@mui/material'
+import React from 'react'
+
 const Carousal: React.FC = () => {
     return (
         <React.Fragment>
-        <Box marginTop={-2} sx = {{width:"100vw", maxWidth:"100%"}}>
-            <Carousel>
+        <Box sx = {{width:"100vw", height:"100%", maxWidth:"100%", marginTop:10}}>
+            <Carousel duration={450}>
                 {Items.map((item) => <CarosItem key={item.id} item={item} />)}
             </Carousel>
         </Box>

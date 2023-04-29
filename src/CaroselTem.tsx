@@ -10,7 +10,7 @@ type Product = {
 const Item:React.FC<Product> = (props: Product) =>{
     return (
         <Paper>
-            <img src={props.item.imageurl} alt={props.item.description} style = {{height:"60vh", width:"100%"}} />
+            <img src={props.item.imageurl} alt={props.item.description} style = {{height:"80vh", width:"100%"}} />
             <Typography variant="body1" sx={{justifyContent:'center', display:"flex"}}>
                 {props.item.description}
             </Typography>
