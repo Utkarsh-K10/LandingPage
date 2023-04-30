@@ -1,7 +1,6 @@
 import React, { useState } from "react"
-import { Drawer, IconButton, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material"
+import { Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material"
 import MenuIcon from '@mui/icons-material/Menu';
-
 
 export const DrawerComp: React.FC = () => {
   const tabspage = ["About Us", "Admission", "Pay Fee", "Notice"]
@@ -12,11 +11,14 @@ export const DrawerComp: React.FC = () => {
         <List>
           {
             tabspage.map((tabs, index) => (
+              <ListItem key={index}>
               <ListItemButton key={index}>
                 <ListItemIcon>
-                  <ListItemText>{tabs}</ListItemText>
+                  <ListItemText primaryTypographyProps={{color:"orangered"}} key={index}>{tabs}</ListItemText>
                 </ListItemIcon>
+                <Divider sx={{color:"black"}}/>
               </ListItemButton>
+              </ListItem>
             ))}
         </List>
       </Drawer>

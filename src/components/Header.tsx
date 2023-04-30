@@ -1,6 +1,6 @@
 import * as React from "react"
 import { AppBar, Box, Link, Tab, Tabs, Toolbar, Typography, useMediaQuery, useTheme } from "@mui/material"
-import logo from "../src/assets/rkmslogo2.png"
+import logo from "../assets/rkmslogo2.png"
 import Carousal from "./Carousal"
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk';
@@ -15,7 +15,6 @@ export const Header: React.FC = () => {
     const [value, setValue] = React.useState<stateProp>({ value: 0 })
     const theme = useTheme();
     const isMatch = useMediaQuery(theme.breakpoints.down("md"))
-
     return (
         <React.Fragment>
             <AppBar sx={{ background: "#f1f8e9" }}>
@@ -55,7 +54,7 @@ export const Header: React.FC = () => {
                                 <Typography variant="h6" fontWeight={70} color={"orangered"}> rkmemorialhss@gmail.com</Typography>
                                 <PhoneInTalkIcon color="warning" sx={{ marginLeft: "auto" }}/>
                                 <Typography variant="body1" fontWeight={60} color={"orangered"}>7728988448</Typography>
-                                <Tabs sx={{ marginLeft: "auto" }} indicatorColor="secondary" value={value} onChange={(e: React.SyntheticEvent, value: stateProp) => { setValue(value) }}>
+                                    <Tabs sx={{ marginLeft: "auto" }} indicatorColor="secondary" value={value} onChange={(e: React.SyntheticEvent, value: stateProp) => { setValue(value) }}>
                                     <Tab component="text" label="About Us" />
                                     <Tab component="text" label="Admission" />
                                     <Tab component="text" label="Gallery" />
