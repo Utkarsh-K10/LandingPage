@@ -1,6 +1,6 @@
 import { Header } from '../Header'
 import React from 'react'
-import CardSlide from '../cardSlide'
+import CardSlide from '../CardSlide'
 import { Divider } from '@mui/material'
 const HomePage:React.FC = () => {
     return (
