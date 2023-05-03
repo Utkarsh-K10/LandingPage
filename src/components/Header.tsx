@@ -17,12 +17,12 @@ export const Header: React.FC = () => {
     const isMatch = useMediaQuery(theme.breakpoints.down("md"))
     return (
         <React.Fragment>
-            <AppBar sx={{ background: "#f1f8e9" }}>
+            <AppBar sx={{ background: "#f5f5f5" }}>
                 <Toolbar>
                     <Link href="/">
                         <Box
                             component={"img"}
-                            sx={{ height: 100 }}
+                            sx={{ height: 85, justifyContent:"center"}}
                             alt="logo"
                             src={logo}
                             alignItems={"center"}

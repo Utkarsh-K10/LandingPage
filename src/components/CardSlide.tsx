@@ -22,13 +22,13 @@ const card:React.CSSProperties = {
 const CardSlide: React.FC = () => {
     return (
         <React.Fragment>
-            <Container component="section" maxWidth="lg" sx={{padding:12,px:4}}>
+            <Container component="section" maxWidth="lg" sx={{padding:10, px:4}}>
                 <Grid container spacing={2} alignItems="stretch">
                     <Grid item xs={12} sm={4}>
                         <div style={card}>
                             <EmojiEventsIcon
                                 fontSize="large"
-                                sx={{padding:2, color:"orangered"}}
+                                sx={{padding:2, color:"#ef5350"}}
                             />
                             <Typography variant="h5" component="h3" padding={2}>
                                 Explore Tokyo
@@ -56,9 +56,8 @@ const CardSlide: React.FC = () => {
                     <Grid item xs={12} sm={4}>
                         <div  style={card}>
                             <MenuBookIcon
-                                color="primary"
                                 fontSize="large"
-                                sx={{padding:2}}
+                                sx={{padding:2,color:"#ef5350"}}
                             />
                             <Typography variant="h5" component="h3" padding={2}>
                                 Visit the Best Spots
@@ -86,9 +85,8 @@ const CardSlide: React.FC = () => {
                     <Grid item xs={12} sm={4}>
                         <div  style={card}>
                             <SportsCricketIcon
-                                color="primary"
                                 fontSize="large"
-                                sx={{padding:2}}
+                                sx={{padding:2, color:"#ef5350"}}
                             />
                             <Typography variant="h5" component="h3" padding={2}>
                                 Visit the Best Spots
