@@ -22,7 +22,8 @@ const card:React.CSSProperties = {
 const CardSlide: React.FC = () => {
     return (
         <React.Fragment>
-            <Container component="section" maxWidth="lg" sx={{padding:10, px:4}}>
+            <Typography variant='h4' component="h6" marginTop={5}> About US</Typography>
+            <Container component="section" maxWidth="lg" sx={{padding:5, px:4}}>
                 <Grid container spacing={2} alignItems="stretch">
                     <Grid item xs={12} sm={4}>
                         <div style={card}>

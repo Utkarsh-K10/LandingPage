@@ -25,17 +25,17 @@ export default Carousal
 const Items = [{
     "id": 1,
     "description": "Click to know more",
-    "imageurl":`${firstimg}`
+    "imageurl":`${secondimg}`
 },
 {
     "id": 2,
     "description": "Click",
-    "imageurl":`${secondimg}`
+    "imageurl":`${firstimg}`
 },
 {
     "id": 3,
     "description": "Click to know ",
-    "imageurl":`${thirdimg}`
+    "imageurl":`${sixthimage}`
 },
 {
     "id": 4,
@@ -50,6 +50,6 @@ const Items = [{
 {
     "id": 6,
     "description": "Click to more",
-    "imageurl":`${sixthimage}`
+    "imageurl":`${thirdimg}`
 }
 ]
