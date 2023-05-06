@@ -12,7 +12,7 @@ import sixthimage from '../assets/sixthimage.jpeg'
 const Carousal: React.FC = () => {
     return (
         <React.Fragment>
-        <Box sx = {{ width:"100vw", height:"100%", maxWidth:"100%", marginTop:8}}>
+        <Box sx = {{ width:"100vw", height:"100%", maxWidth:"100%", marginTop:1}}>
             <Carousel duration={450} indicators={false}>
                 {Items.map((item) => <CarosItem key={item.id} item={item} />)}
             </Carousel>

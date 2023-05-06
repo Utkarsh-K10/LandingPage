@@ -1,7 +1,10 @@
 import { Box, Chip, Container, Divider, Grid, Paper, Typography } from '@mui/material'
 import React from 'react'
+import FaceIcon from '@mui/icons-material/Face';
 import aboutus from '../assets/aboutUspage.jpeg'
 import firstimg from '../assets/fourthImage.jpeg'
+import SchoolIcon from '@mui/icons-material/School';
+import FaceRetouchingNaturalIcon from '@mui/icons-material/FaceRetouchingNatural';
 
 
 // function
@@ -12,12 +15,12 @@ const ImageGallery: React.FC = () => {
                 <Typography>
                     Image Gallery
                 </Typography>
-                <Grid container direction={{xs:"column", md:"row", lg:"row", xl:"row"}} margin={5} marginLeft={0} >
+                <Grid container direction={{xs:"column", sm:"column",md:"row", lg:"column", xl:"column"}} margin={5} marginLeft={0} >
                     <Divider variant='middle'>
-                        <Chip label="Center" />
+                        <Chip  color='info' icon={<SchoolIcon/>}label="Value"/>
                     </Divider>
                     <Box sx={{ display: 'flex', flexDirection: {md:"row",lg:"row",xl:"row"}, marginY: 2 }}>
-                        <Box width={'50%'}>
+                        <Box width={'50%'} height={"65vh"}>
                             <img src={aboutus} alt='new' width={"100%"} height={"100%"} />
                         </Box>
                         <Box width={'50%'} bgcolor={"InfoBackground"}>
@@ -33,7 +36,7 @@ const ImageGallery: React.FC = () => {
                         </Box>
                     </Box>
                     <Divider>
-                        <Chip label="Potential" />
+                        <Chip  icon={<FaceRetouchingNaturalIcon/>}  label="Care" color='success'/>
                     </Divider>
 
                     <Box sx={{ display: 'flex', flexDirection: {md:"row",lg:"row",xl:"row"}, marginY: 2 }}>
@@ -48,11 +51,11 @@ const ImageGallery: React.FC = () => {
                                 </Typography>
                             </Paper>
                         </Box>
-                        <Box width={'50%'}>
+                        <Box width={'50%'} height={"65vh"}>
                             <img src={firstimg} alt='new' width={"100%"} height={"100%"} />
                         </Box>
                     </Box>
-                    <Divider><Chip label=" Cute Gallery"/></Divider>
+                    <Divider><Chip icon={<FaceIcon/>} label=" Cute Gallery" variant='outlined' color='warning'/></Divider>
                     <Box justifyContent={"center"} sx={{ height: '300px', width: { xs: 400, sm: 400, md: 500, lg: 600, xl: 700 }, bgcolor: 'primary.main', margin: "auto", marginTop: 2 }}>
                     </Box>
                 </Grid>
