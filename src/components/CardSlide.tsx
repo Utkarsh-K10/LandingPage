@@ -1,4 +1,4 @@
-import { Container, Grid, Paper, Typography } from '@mui/material'
+import { Box, Container, Grid, Paper, Typography } from '@mui/material'
 import React from 'react'
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
@@ -20,13 +20,17 @@ const card: React.CSSProperties = {
 const CardSlide: React.FC = () => {
     return (
         <React.Fragment>
-            <Typography variant='h4' component="h6" marginTop={5}> About US</Typography>
+            <Box display="flex" width={"70%"} flexDirection={"row"} component={Container} bgcolor={"#ff6e40"} disableGutters mt={5}>
+                <Box width={"70%"} height={"100%"} margin={"auto"}>
+                    <Typography variant='h3' color={"whitesmoke"} fontFamily={"initial"} display={"block"} textAlign={"center"}>Our Goal</Typography>
+                </Box>
+            </Box>
             <Container component="section" maxWidth="lg" sx={{ padding: 5, px: 4 }}>
                 <Grid container spacing={2} alignItems="stretch">
 
                     <Grid item xs={12} sm={4}>
                         <div style={card}>
-                            <Paper elevation={3} sx={{height:"100%",width:"100%"}} >
+                            <Paper elevation={4} sx={{ height: "100%", width: "100%" }} >
                                 <EmojiEventsIcon
                                     fontSize="large"
                                     sx={{ padding: 2, color: "#ef5350" }}
@@ -43,7 +47,7 @@ const CardSlide: React.FC = () => {
 
                     <Grid item xs={12} sm={4}>
                         <div style={card}>
-                            <Paper elevation={3} sx={{height:"100%",width:"100%"}}>
+                            <Paper elevation={4} sx={{ height: "100%", width: "100%" }}>
                                 <WorkspacePremiumIcon
                                     color="primary"
                                     fontSize="large"
@@ -61,7 +65,7 @@ const CardSlide: React.FC = () => {
 
                     <Grid item xs={12} sm={4}>
                         <div style={card}>
-                            <Paper elevation={3} sx={{height:"100%",width:"100%"}}>
+                            <Paper elevation={4} sx={{ height: "100%", width: "100%" }}>
 
                                 <MenuBookIcon
                                     fontSize="large"
@@ -78,7 +82,7 @@ const CardSlide: React.FC = () => {
                     </Grid>
                     <Grid item xs={12} sm={4}>
                         <div style={card}>
-                            <Paper elevation={3} sx={{height:"100%",width:"100%"}}>
+                            <Paper elevation={4} sx={{ height: "100%", width: "100%" }}>
                                 <DirectionsBusFilledIcon
                                     color="primary"
                                     fontSize="large"
@@ -96,7 +100,7 @@ const CardSlide: React.FC = () => {
                     </Grid>
                     <Grid item xs={12} sm={4}>
                         <div style={card}>
-                            <Paper elevation={3} sx={{height:"100%",width:"100%"}}>
+                            <Paper elevation={4} sx={{ height: "100%", width: "100%" }}>
                                 <SportsCricketIcon
                                     fontSize="large"
                                     sx={{ padding: 2, color: "#ef5350" }}
@@ -112,7 +116,7 @@ const CardSlide: React.FC = () => {
                     </Grid>
                     <Grid item xs={12} sm={4}>
                         <div style={card}>
-                            <Paper elevation={3} sx={{height:"100%",width:"100%"}}>
+                            <Paper elevation={4} sx={{ height: "100%", width: "100%" }}>
                                 <MedicalServicesIcon
                                     color="primary"
                                     fontSize="large"

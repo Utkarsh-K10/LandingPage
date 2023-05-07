@@ -1,8 +1,8 @@
 import { Box, Chip, Container, Divider, Grid, Paper, Typography } from '@mui/material'
 import React from 'react'
 import FaceIcon from '@mui/icons-material/Face';
-import aboutus from '../assets/aboutUspage.jpeg'
-import firstimg from '../assets/fourthImage.jpeg'
+import aboutus from '../assets/aboutuskids.jpg'
+import firstimg from '../assets/potentielkids.jpg'
 import SchoolIcon from '@mui/icons-material/School';
 import FaceRetouchingNaturalIcon from '@mui/icons-material/FaceRetouchingNatural';
 
@@ -31,6 +31,7 @@ const ImageGallery: React.FC = () => {
                                 <Typography textAlign="justify" variant='body1' fontWeight={60} mt={2} ml={2} mr={2}>
                                     Part -1 Some Text Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quisquam, minima aperiam tenetur at
                                     labore pariatur perferendis non animi ex omnis quaerat ipsam eaque velit aliquid, consectetur aut! Autem, doloremque nesciunt?
+                                    sit amet consectetur adipisicing elit. Nostrum veritatis soluta, voluptatem molestias iure sapiente quas architecto.
                                 </Typography>
                             </Paper>
                         </Box>
@@ -46,8 +47,9 @@ const ImageGallery: React.FC = () => {
                                 <Typography variant="h3" component={"h3"} gutterBottom display={"block"} align='left' ml={2} fontFamily={"initial"} color={"primary.main"}> Potential</Typography>
                                 <Divider variant='middle' sx={{width:"20%", maxWidth:"20%"}} textAlign='left'/>
                                 <Typography textAlign="justify" variant='body1' fontWeight={60} mt={2} ml={2} mr={2}>
-                                    Part -1 Some Text Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quisquam, minima aperiam tenetur at
+                                Part -2 Some Text Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quisquam, minima aperiam tenetur at
                                     labore pariatur perferendis non animi ex omnis quaerat ipsam eaque velit aliquid, consectetur aut! Autem, doloremque nesciunt?
+                                    sit amet consectetur adipisicing elit. Nostrum veritatis soluta, voluptatem molestias iure sapiente quas architecto.
                                 </Typography>
                             </Paper>
                         </Box>
