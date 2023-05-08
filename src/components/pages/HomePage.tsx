@@ -3,6 +3,7 @@ import React from 'react'
 import CardSlide from '../CardSlide'
 import ImageGallery from '../ImageGallery'
 import HeadingBox from '../HeadingBox'
+import RHFLoginForm from './RHFLoginForm'
 const HomePage:React.FC = () => {
     return (
         <React.Fragment>
@@ -10,6 +11,7 @@ const HomePage:React.FC = () => {
             <Header/>
             <CardSlide/>
             <ImageGallery/>
+            <RHFLoginForm/>
         </React.Fragment>
     )
 }
