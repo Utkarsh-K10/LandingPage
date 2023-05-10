@@ -1,43 +1,48 @@
 import React from 'react'
 import { useForm } from 'react-hook-form';
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { TextField, Button, Stack} from '@mui/material';
+
+const schema = yup.object({
+    username: yup.string().required("Username is required"),
+    email: yup.string().required("Email is required")
+})
 
 type FormValue = {
-
     username: string,
     email: string,
 }
 
 const RHFLoginForm: React.FC = () => {
-    const form = useForm<FormValue>();
-    const { register,formState } = form
-    const {errors} = formState
+
+    const form = useForm<FormValue>(
+        {
+            defaultValues: {
+                username: "dadafd",
+                email: "abc@gmail.com",
+            },
+
+            resolver: yupResolver(schema)
+        }
+    );
+
+    const { register, formState, handleSubmit } = form
+    const { errors } = formState
+    const onSubmit = (data:FormValue)=>{
+        console.log(data)
+    }
     return (
         <React.Fragment>
-            <form>
-                <label htmlFor='username'> First Name</label>
-                <input id='username' type='text' {...register("username")} />
-                <label htmlFor='email'> Email</label>
-                <input
-                    id='email'
-                    type='email'
-                    {...register("email", {
-                        required:{
-                            value:true, 
-                            message:"Email Already Esists"
-                        },
-                        validate: {
-                            emailAvaialable: async (fieldValue:React.HTMLInputTypeAttribute) => {
-                                const response = await fetch(`https://jsonplaceholder.typicode.com/users?email=${fieldValue}`)
-                                const data = await response.json();
-                                return data.length === 0 || "Email Already Exists";
-                            }
-                        }
-                    }
-                    )} />
-                <p>{errors.email?.message}</p>
-                <button type='submit'>Submit</button>
+            <form onSubmit={handleSubmit(onSubmit)} noValidate>
+                <Stack spacing={2} width={400} margin={"auto"}>
+                    <TextField label="username" type='text' {...register("username")}/>
+                    <p>{errors.username?.message}</p>
+                    <TextField label="email" type='email' {...register("email")}/>
+                    <Button type='submit' variant='contained' color='primary'>Submit</Button>
+                    <p>{errors.email?.message}</p>
+                </Stack>
             </form>
-            console.log({errors.email?.message});
         </React.Fragment>
     )
 }
