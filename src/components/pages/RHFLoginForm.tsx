@@ -2,16 +2,18 @@ import React from 'react'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { TextField, Button, Stack} from '@mui/material';
+import { TextField, Stack} from '@mui/material';
 
 const schema = yup.object({
     username: yup.string().required("Username is required"),
-    email: yup.string().required("Email is required")
+    email: yup.string().required("Email is required"),
+    mobile: yup.number().required("Mobile nu is must"),
 })
 
 type FormValue = {
     username: string,
     email: string,
+    mobile:number,
 }
 
 const RHFLoginForm: React.FC = () => {
@@ -21,6 +23,7 @@ const RHFLoginForm: React.FC = () => {
             defaultValues: {
                 username: "dadafd",
                 email: "abc@gmail.com",
+                mobile: 0
             },
 
             resolver: yupResolver(schema)
@@ -39,8 +42,9 @@ const RHFLoginForm: React.FC = () => {
                     <TextField label="username" type='text' {...register("username")}/>
                     <p>{errors.username?.message}</p>
                     <TextField label="email" type='email' {...register("email")}/>
-                    <Button type='submit' variant='contained' color='primary'>Submit</Button>
                     <p>{errors.email?.message}</p>
+                    <TextField label = "mobile" type="number" {...register("mobile")} />
+                    <p>{errors.mobile?.message}</p>
                 </Stack>
             </form>
         </React.Fragment>
