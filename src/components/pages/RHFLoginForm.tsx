@@ -26,7 +26,6 @@ const RHFLoginForm: React.FC = () => {
                 email: "abc@gmail.com",
                 mobile: 0
             },
-
             resolver: yupResolver(schema)
         }
     );
