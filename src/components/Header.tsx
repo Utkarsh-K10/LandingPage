@@ -1,7 +1,6 @@
 import * as React from "react"
 import { AppBar, Box, Link, Tab, Tabs, Toolbar, Typography, useMediaQuery, useTheme } from "@mui/material"
 import logo from "../assets/rkmslogo2.png"
-import Carousal from "./Carousal"
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk';
 import { DrawerComp } from "./DrawerComp";
@@ -65,7 +64,6 @@ export const Header: React.FC = () => {
                     }
                 </Toolbar>
             </AppBar>
-            <Carousal />
         </React.Fragment>
     )
 }

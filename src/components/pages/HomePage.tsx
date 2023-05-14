@@ -1,17 +1,16 @@
-import { Header } from '../Header'
 import React from 'react'
 import CardSlide from '../CardSlide'
 import ImageGallery from '../ImageGallery'
-import HeadingBox from '../HeadingBox'
-import RHFLoginForm from './RHFLoginForm'
+import HeadingBox from '../HeadingBox';
+import Carousal from '../Carousal'
+
 const HomePage:React.FC = () => {
     return (
         <React.Fragment>
             <HeadingBox/>
-            <Header/>
+            <Carousal />
             <CardSlide/>
             <ImageGallery/>
-            <RHFLoginForm/>
         </React.Fragment>
     )
 }
