@@ -1,6 +1,6 @@
 import { Button, Chip,Divider, Paper, Stack, TextField, Typography } from '@mui/material'
 import React from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form';
 import Face2Icon from '@mui/icons-material/Face2';
 import * as yup from "yup"
 import { yupResolver } from '@hookform/resolvers/yup';
