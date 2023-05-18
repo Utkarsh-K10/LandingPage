@@ -5,8 +5,8 @@ let bodyParser = require("body-parser");
 let dbConfig = require("./database/db");
 require("dotenv").config();
 
-// express route
-const studentRoute = require("../backend/routes/student.route");
+// import routes
+const testRoutes = require("./routes/test");
 
 // app
 const app = express();
@@ -20,16 +20,15 @@ mongoose.connect(process.env.MONGO_URI)
   console.log("error connecting", error)
 });
 
-
 // middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(cors());
-
+ 
 // routes
-app.use('/students', studentRoute)
+app.use("/", testRoutes);
 
 // port
 const port = process.env.PORT || 4000;
@@ -39,9 +38,9 @@ const server = app.listen(port, () => {
   console.log('Connected to port ' + port)
 })
   
-// 404 Error
+// Sucess message
 app.use((req, res, next) => {
-  res.status(404).send('Error 404!')
+  res.status(200).send('Server working Fine')
 });
 
 app.use(function (err, req, res, next) {
