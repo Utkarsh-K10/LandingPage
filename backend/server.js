@@ -2,7 +2,6 @@ let mongoose = require("mongoose");
 let express = require("express");
 let cors = require("cors");
 let bodyParser = require("body-parser");
-let dbConfig = require("./database/db");
 require("dotenv").config();
 
 // import routes

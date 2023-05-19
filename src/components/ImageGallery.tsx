@@ -6,28 +6,44 @@ import firstimg from '../assets/potentielkids.jpg'
 import SchoolIcon from '@mui/icons-material/School';
 import FaceRetouchingNaturalIcon from '@mui/icons-material/FaceRetouchingNatural';
 
+interface StateProp {
+    data: string;
+}
 
+import { getTest } from '../services/test';
 // function
 const ImageGallery: React.FC = () => {
+
+    const [data, setData] = React.useState<StateProp|undefined>({data:'testdata'});
+    
+    React.useEffect(()=>{
+        getTest()
+            .then((res)=>{
+                setData({data:res.message})
+            })
+            .catch((error)=>{console.log(error)
+        })
+    },[data])
+
     return (
         <React.Fragment>
             <Container>
                 <Typography>
                     Image Gallery
                 </Typography>
-                <Grid container direction={{xs:"column", sm:"column",md:"row", lg:"column", xl:"column"}} margin={5} marginLeft={0} >
+                <Grid container direction={{ xs: "column", sm: "column", md: "row", lg: "column", xl: "column" }} margin={5} marginLeft={0} >
                     <Divider variant='middle'>
-                        <Chip  color='info' icon={<SchoolIcon/>}label="Value"/>
+                        <Chip color='info' icon={<SchoolIcon />} label="Value" />
                     </Divider>
-                    <Box sx={{ display: 'flex', flexDirection: {md:"row",lg:"row",xl:"row"}, marginY: 2 }}>
+                    <Box sx={{ display: 'flex', flexDirection: { md: "row", lg: "row", xl: "row" }, marginY: 2 }}>
                         <Box width={'50%'} height={"65vh"}>
                             <img src={aboutus} alt='new' width={"100%"} height={"100%"} />
                         </Box>
                         <Box width={'50%'} bgcolor={"InfoBackground"}>
                             <Paper elevation={3} sx={{ height: "100%", width: "100%" }}>
-                                <Typography variant="subtitle1" color={"#ef5350"} gutterBottom display={"block"}  fontWeight={40} align='left' ml={2} paddingTop={2}> KNOW THE DEPTH </Typography>
+                                <Typography variant="subtitle1" color={"#ef5350"} gutterBottom display={"block"} fontWeight={40} align='left' ml={2} paddingTop={2}> KNOW THE DEPTH </Typography>
                                 <Typography variant="h3" component={"h3"} gutterBottom display={"block"} align='left' ml={2} fontFamily={"initial"} color={"primary.main"}> About Us </Typography>
-                                <Divider variant='middle' sx={{width:"20%", maxWidth:"20%"}} textAlign='left'/>
+                                <Divider variant='middle' sx={{ width: "20%", maxWidth: "20%" }} textAlign='left' />
                                 <Typography textAlign="justify" variant='body1' fontWeight={60} mt={2} ml={2} mr={2}>
                                     Part -1 Some Text Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quisquam, minima aperiam tenetur at
                                     labore pariatur perferendis non animi ex omnis quaerat ipsam eaque velit aliquid, consectetur aut! Autem, doloremque nesciunt?
@@ -37,17 +53,17 @@ const ImageGallery: React.FC = () => {
                         </Box>
                     </Box>
                     <Divider>
-                        <Chip  icon={<FaceRetouchingNaturalIcon/>}  label="Care" color='success'/>
+                        <Chip icon={<FaceRetouchingNaturalIcon />} label="Care" color='success' />
                     </Divider>
 
-                    <Box sx={{ display: 'flex', flexDirection: {md:"row",lg:"row",xl:"row"}, marginY: 2 }}>
+                    <Box sx={{ display: 'flex', flexDirection: { md: "row", lg: "row", xl: "row" }, marginY: 2 }}>
                         <Box width={'50%'} bgcolor={"InfoBackground"} >
                             <Paper elevation={3} sx={{ height: "100%", width: "100%" }}>
                                 <Typography variant="subtitle1" color={"#ef5350"} gutterBottom fontWeight={40} display={"block"} align='left' ml={2} paddingTop={2}>OUR WISDOM</Typography>
                                 <Typography variant="h3" component={"h3"} gutterBottom display={"block"} align='left' ml={2} fontFamily={"initial"} color={"primary.main"}> Potential</Typography>
-                                <Divider variant='middle' sx={{width:"20%", maxWidth:"20%"}} textAlign='left'/>
+                                <Divider variant='middle' sx={{ width: "20%", maxWidth: "20%" }} textAlign='left' />
                                 <Typography textAlign="justify" variant='body1' fontWeight={60} mt={2} ml={2} mr={2}>
-                                Part -2 Some Text Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quisquam, minima aperiam tenetur at
+                                    Part -2 Some Text Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quisquam, minima aperiam tenetur at
                                     labore pariatur perferendis non animi ex omnis quaerat ipsam eaque velit aliquid, consectetur aut! Autem, doloremque nesciunt?
                                     sit amet consectetur adipisicing elit. Nostrum veritatis soluta, voluptatem molestias iure sapiente quas architecto.
                                 </Typography>
@@ -57,9 +73,16 @@ const ImageGallery: React.FC = () => {
                             <img src={firstimg} alt='new' width={"100%"} height={"100%"} />
                         </Box>
                     </Box>
-                    <Divider><Chip icon={<FaceIcon/>} label=" Cute Gallery" variant='outlined' color='warning'/></Divider>
+
+                    <Divider>
+                        <Chip icon={<FaceIcon />} label=" Cute Gallery" variant='outlined' color='warning' />
+                    </Divider>
                     <Box justifyContent={"center"} sx={{ height: '300px', width: { xs: 400, sm: 400, md: 500, lg: 600, xl: 700 }, bgcolor: 'primary.main', margin: "auto", marginTop: 2 }}>
+                        <Typography variant='h5' fontWeight={60} textAlign={"justify"}> 
+                        {data?.data}
+                        </Typography>
                     </Box>
+
                 </Grid>
             </Container>
         </React.Fragment>
