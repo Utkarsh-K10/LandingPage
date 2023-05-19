@@ -1,9 +1,11 @@
-import { Button, Chip,Divider, Paper, Stack, TextField, Typography } from '@mui/material'
-import React from 'react'
+import { Button, Chip, Divider, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, Paper, Stack, TextField, Typography } from '@mui/material'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import Face2Icon from '@mui/icons-material/Face2';
 import * as yup from "yup"
 import { yupResolver } from '@hookform/resolvers/yup';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const schema = yup.object({
     email: yup.string().required("Email Required"),
@@ -14,11 +16,16 @@ type formVlaue = {
     email: string,
     password: string,
 }
+
+
 const LoginPage = () => {
+
+    const [showPassword, setShowPassword] = useState(false)
+
     const form = useForm<formVlaue>(({
         defaultValues: {
             email: "test@gmail.com",
-            password:"****"
+            password: "****"
         },
         resolver: yupResolver(schema),
     }));
@@ -41,9 +48,26 @@ const LoginPage = () => {
                 <Divider variant="middle" />
                 <form onSubmit={handleSubmit(onSubmit)} noValidate>
                     <Stack spacing={2} width={400} margin={"auto"} marginTop={2}>
-                        <TextField label="Username" variant='filled' type='email' {...register("email")} helperText={errors.email?.message} />
-                        <TextField label="Password" variant='filled' type="password" {...register("password")} helperText={errors.password?.message} />
-                        <Button type='submit' variant='contained'>Submit</Button>
+                        <TextField label="Username" variant='outlined' type='email' {...register("email")} helperText={errors.email?.message} />
+                        <TextField 
+                            label="Password" 
+                            variant='outlined' 
+                            type={showPassword ?'text' : 'password'}
+                            {...register("password")}
+                            helperText={errors.password?.message}
+                            InputProps={{
+                                endAdornment: <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        edge="end"
+                                    >
+                                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                                    </IconButton>
+                                </InputAdornment>
+                            }}
+                        />
+                        <Button type='submit' variant='contained' disabled={!register("email") || !register("password")}>Submit</Button>
                     </Stack>
                 </form>
             </Paper>
