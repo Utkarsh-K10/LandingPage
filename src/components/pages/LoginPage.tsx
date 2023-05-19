@@ -1,4 +1,4 @@
-import { Button, Chip, Divider, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, Paper, Stack, TextField, Typography } from '@mui/material'
+import { Button, Chip, Divider, IconButton, InputAdornment, Paper, Stack, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import Face2Icon from '@mui/icons-material/Face2';
@@ -24,8 +24,8 @@ const LoginPage = () => {
 
     const form = useForm<formVlaue>(({
         defaultValues: {
-            email: "test@gmail.com",
-            password: "****"
+            email: "",
+            password: ""
         },
         resolver: yupResolver(schema),
     }));
@@ -55,6 +55,7 @@ const LoginPage = () => {
                             type={showPassword ?'text' : 'password'}
                             {...register("password")}
                             helperText={errors.password?.message}
+                            FormHelperTextProps={{color:'primary'}}
                             InputProps={{
                                 endAdornment: <InputAdornment position="end">
                                     <IconButton

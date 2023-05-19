@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom'
 import LoginPage from './components/pages/LoginPage'
 import { Header } from './components/Header'
 import EnquiryPage from './components/pages/EnquiryPage'
+import SignupPage from './components/pages/SignupPage'
 
 export const App = ()=> {
   return(
@@ -14,6 +15,7 @@ export const App = ()=> {
         <Route path='/' element={<HomePage/>}/>
         <Route path='/login' element={<LoginPage/>}/>
         <Route path='/admission' element={<EnquiryPage/>}/>
+        <Route path='/signup' element = {<SignupPage/>}/>
       </Routes>
     </React.Fragment>
   )
