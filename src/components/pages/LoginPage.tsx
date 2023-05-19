@@ -18,7 +18,7 @@ type formVlaue = {
 }
 
 
-const LoginPage = () => {
+const LoginPage:React.FC = () => {
 
     const [showPassword, setShowPassword] = useState(false)
 

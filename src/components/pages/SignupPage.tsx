@@ -17,7 +17,7 @@ type formValue = {
     password:string;
 }
 
-const SignupPage = () => {
+const SignupPage:React.FC = () => {
 
     const form = useForm<formValue>(({
         defaultValues:{

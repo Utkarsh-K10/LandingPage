@@ -27,7 +27,6 @@ const CardSlide: React.FC = () => {
             </Box>
             <Container component="section" maxWidth="lg" sx={{ padding: 5, px: 4 }}>
                 <Grid container spacing={2} alignItems="stretch">
-
                     <Grid item xs={12} sm={4}>
                         <div style={card}>
                             <Paper elevation={4} sx={{ height: "100%", width: "100%" }} >
