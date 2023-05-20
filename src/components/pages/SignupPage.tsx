@@ -5,10 +5,11 @@ import * as yup from "yup"
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 
-const schema = yup.object({
+const schema = yup.object().shape({
     username: yup.string().required("Please enter username"),
     email: yup.string().email().required("Please enter email"),
-    password: yup.string().required("enter password"),
+    password: yup.string().required("enter password").min(3,' password atleast 3 char long'),
+    confirmpassword: yup.string().required("enter password").oneOf([yup.ref('password')],''),
 });
 
 type formValue = {
@@ -28,7 +29,7 @@ const SignupPage: React.FC = () => {
         resolver: yupResolver(schema),
     }));
     const { register, handleSubmit, formState, getValues } = form;
-    const { errors } = formState;
+    const { errors} = formState;
     const onSubmit = (data: formValue) => {
         console.log(data);
     }
@@ -36,13 +37,13 @@ const SignupPage: React.FC = () => {
     return (
         <React.Fragment>
             <Paper elevation={4} sx={{ width: 430, margin: "auto", paddingY: 2 }}>
-                <Divider>
+                <Divider variant='middle'>
                     <Chip icon={<Face2Icon />} label="Signup" variant='outlined' color='primary' />
                 </Divider>
                 <Typography variant='h5' display={"block"} m={"auto"} padding={2}>
                     Fill Details to Signup
                 </Typography>
-                <Divider variant="middle" />
+                <Divider/>
                 <form onSubmit={handleSubmit(onSubmit)} noValidate>
                     <Stack spacing={2} width={400} margin={"auto"} marginTop={2}>
                         <TextField label="Username" variant='outlined' type='text' {...register("username")} helperText={errors.username?.message} />
@@ -56,7 +57,7 @@ const SignupPage: React.FC = () => {
                                 }
                             </FormHelperText>
                         )}
-                        <Button type='submit' variant='contained' disabled={!register("email") || !register("password")}>Submit</Button>
+                        <Button type='submit' variant='contained' disabled={!getValues("email") || !getValues("password") || !getValues("username") || !getValues("confirmpassword")}>Submit</Button>
                     </Stack>
                 </form>
             </Paper>

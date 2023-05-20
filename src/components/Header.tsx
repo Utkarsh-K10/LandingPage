@@ -60,7 +60,7 @@ export const Header: React.FC = () => {
                                         <Tab component="text" label="Admission" />
                                     </Link>
                                     <Tab component="text" label="Gallery" />
-                                    <Link component={Button} href="/login" underline="hover">
+                                    <Link component={Button} href="/user/login" underline="hover">
                                         <Tab component="text" label="Pay Fee" />
                                     </Link>
                                 </Tabs>
