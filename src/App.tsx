@@ -14,9 +14,9 @@ export const App = ()=> {
       <Header/>
       <Routes>
         <Route path='/' element={<HomePage/>}/>
-        <Route path='/login' element={<LoginPage/>}/>
+        <Route path='/admin/login' element={<LoginPage/>}/>
         <Route path='/admission' element={<EnquiryPage/>}/>
-        <Route path='/signup' element = {<SignupPage/>}/>
+        <Route path='/admin/signup' element = {<SignupPage/>}/>
         <Route path='/admin' element = {<AdminPage/>}/>
       </Routes>
     </React.Fragment>
