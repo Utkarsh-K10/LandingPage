@@ -13,10 +13,10 @@ const app = express();
 // conect mongoDb database
 mongoose.connect(process.env.MONGO_URI)
 .then(() => {
-  console.log("Connected successfully")
+  console.log("DB CONNECTED")
 })
 .catch((error) => {
-  console.log("error connecting", error)
+  console.log("ERROR CONNECTING", error)
 });
 
 // middleware
