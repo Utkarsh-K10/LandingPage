@@ -3,8 +3,6 @@ let express = require("express");
 let cors = require("cors");
 let bodyParser = require("body-parser");
 require("dotenv").config();
-const expressValidator = require("express-validator");
-// let {json, urlencoded} = express;
 const cookieParser = require("cookie-parser");
 
 // app
@@ -23,8 +21,8 @@ mongoose.connect(process.env.MONGO_URI)
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors({origin:true, credentials:true}));
-// app.use(expressValidator());
 app.use(cookieParser())
+
 
 // routes
 const register = require("./routes/user");

@@ -1,24 +1,34 @@
-exports.userRegisterValidator = (req, res, next) => {
-    // check username 
-    req.check("username",'username is required').notEmpty();
+const {body, validationResult} = require("express-validator");
 
-    // check email validation
-    req.check("email", "email is required").notEmpty();
-    req.check("email", 'Invalid Email').isEmail();
-    // check password validation 
-    req.check("password", 'password is required').notEmpty();
-    req.check("password").isLength({min:6}).withMessage('contains atleast 6 charactars');
-    req.check("password","contain one Upeer case, one lower case, one speacial charectar").match(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\S+$).{6,20}$/,"i");
+const registerValidationRule = ()=>{
+    return [
+        // username validation
+        body("username", "username is required").notEmpty(),
 
-    // errors
-    const errors = req.validationError();
+        // email validation
+        body("email", "email is required").notEmpty().isEmail(),
+        
+        // password validation
+        body("password", 'pasword is required').notEmpty(),
+        body("password").isLength({min:6}).withMessage('contains atleast 6 charactars'),
+        body("password","contain one Upeer case, one lower case, one speacial charectar")
+        .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{6,}$/, "i"),
+    ]
+}
 
-    if(errors){
-        const firstError = errors.map((err)=>err.msg)[0]
-        return res.status(400).json({
-            error:firstError,
-        });
+const registerValidator = (req, res, next)=>{
+    const errors = validationResult(req)
+    if(errors.isEmpty()){
+        return next()
     }
+    const extractedErrors = []
+    errors.array().map((err) => extractedErrors.push({ [err.param]: err.msg }))
+    return res.status(400).json({
+        errors:extractedErrors,
+    })
+}
 
-    next();
-};
+module.exports = {
+    registerValidationRule,
+    registerValidator
+}
