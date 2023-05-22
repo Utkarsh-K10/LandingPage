@@ -3,12 +3,9 @@ let express = require("express");
 let cors = require("cors");
 let bodyParser = require("body-parser");
 require("dotenv").config();
-let {json, urlencoded} = express;
-const cookieParser = require("cookie-parser");
 const expressValidator = require("express-validator");
-
-// import routes
-const testRoutes = require("./routes/test");
+// let {json, urlencoded} = express;
+const cookieParser = require("cookie-parser");
 
 // app
 const app = express();
@@ -26,13 +23,12 @@ mongoose.connect(process.env.MONGO_URI)
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors({origin:true, credentials:true}));
-app.use(json());
-app.use(expressValidator());
-app.use(urlencoded({extended:true}))
-app.use(cookieParser());
+// app.use(expressValidator());
+app.use(cookieParser())
 
 // routes
-app.use("/", testRoutes);
+const register = require("./routes/user");
+app.use("/", register);
 
 // port
 const port = process.env.PORT || 4000;

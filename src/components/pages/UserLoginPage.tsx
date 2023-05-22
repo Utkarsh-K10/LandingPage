@@ -9,7 +9,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const schema = yup.object({
     email: yup.string().required("Email Required"),
-    password: yup.string().required("Enter Password")
+    password: yup.string().required("enter password").min(3,' password atleast 3 char long'),
 })
 
 type formVlaue = {
@@ -29,7 +29,7 @@ const UserLoginPage:React.FC = () => {
         },
         resolver: yupResolver(schema),
     }));
-    const { register, handleSubmit, formState } = form
+    const { register, handleSubmit, formState , getValues} = form
     const { errors } = formState;
 
     const onSubmit = (data: formVlaue) => {
@@ -68,7 +68,7 @@ const UserLoginPage:React.FC = () => {
                                 </InputAdornment>
                             }}
                         />
-                        <Button type='submit' variant='contained' disabled={!register("email") || !register("password")}>Submit</Button>
+                        <Button type='submit' variant='contained' disabled={!getValues("email") || !getValues("password")}>Submit</Button>
                     </Stack>
                 </form>
             </Paper>

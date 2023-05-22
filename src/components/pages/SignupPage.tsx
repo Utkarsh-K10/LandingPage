@@ -1,6 +1,6 @@
 import { Button, Chip, Divider, FormHelperText, Paper, Stack, TextField, Typography } from '@mui/material'
 import React from 'react'
-import Face2Icon from '@mui/icons-material/Face2';
+import SchoolIcon from '@mui/icons-material/School';
 import * as yup from "yup"
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
@@ -37,8 +37,8 @@ const SignupPage: React.FC = () => {
     return (
         <React.Fragment>
             <Paper elevation={4} sx={{ width: 430, margin: "auto", paddingY: 2 }}>
-                <Divider variant='middle'>
-                    <Chip icon={<Face2Icon />} label="Signup" variant='outlined' color='primary' />
+                <Divider>
+                    <Chip icon={<SchoolIcon />} label="Admin" variant='outlined' color='primary' />
                 </Divider>
                 <Typography variant='h5' display={"block"} m={"auto"} padding={2}>
                     Fill Details to Signup

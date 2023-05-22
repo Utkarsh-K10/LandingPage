@@ -1,11 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const register = require("../controllers/user")
+
+
 // import controller
+const {register} = require("../controllers/user")
 
 // import midldleware
+const {userRegisterValidator} = require("../middlewares/user")
 
 // api route
-router.post("/register", register);
+router.post("/register", userRegisterValidator ,register);
 
 module.exports = router;

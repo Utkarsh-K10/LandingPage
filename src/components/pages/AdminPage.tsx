@@ -1,6 +1,7 @@
 import { Box, Chip, Divider, Paper, Typography } from '@mui/material'
 import React from 'react'
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import SchoolIcon from '@mui/icons-material/School';
 import PersonIcon from '@mui/icons-material/Person';
 import { Link } from 'react-router-dom';
 
@@ -13,24 +14,23 @@ const card: React.CSSProperties = {
     textAlign: 'center',
 }
 
-
 const AdminPage: React.FC = () => {
     return (
         <React.Fragment>
             <Box>
                 <div style={card}>
                     <Paper elevation={4} sx={{ height: "100%", width: "100%" }} >
-                        <EmojiEventsIcon
+                        <SchoolIcon
                             fontSize="large"
                             sx={{ padding: 2, color: "#ef5350" }}
                         />
                         <Link to={'/admin/login'} >
                             <Typography variant="h5" component="h3" padding={2}>
-                                Login as Admin
+                                Admin Login
                             </Typography>
                         </Link>
-                        <Typography padding={2}>
-                            Discover Tokyo like you never have before.
+                        <Typography fontWeight={60} padding={2}>
+                            Login as admin to continue in next page
                         </Typography>
                     </Paper>
                 </div>
@@ -47,11 +47,11 @@ const AdminPage: React.FC = () => {
                         />
                         <Link to={'/admin/signup'} >
                             <Typography variant="h5" component="h3" padding={2}>
-                                Register as Admin
+                                Admin Registration
                             </Typography>
                         </Link>
-                        <Typography padding={2}>
-                            Discover Tokyo like you never have before.
+                        <Typography fontWeight={60} padding={2}>
+                            Register as new admin or new admin creation
                         </Typography>
                     </Paper>
                 </div>

@@ -1,7 +1,7 @@
 import { Button, Chip, Divider, IconButton, InputAdornment, Paper, Stack, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
-import Face2Icon from '@mui/icons-material/Face2';
+import SchoolIcon from '@mui/icons-material/School';
 import * as yup from "yup"
 import { yupResolver } from '@hookform/resolvers/yup';
 import Visibility from '@mui/icons-material/Visibility';
@@ -9,7 +9,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const schema = yup.object({
     email: yup.string().required("Email Required"),
-    password: yup.string().required("Enter Password")
+    password: yup.string().required("enter password").min(3,' password atleast 3 char long'),
 })
 
 type formVlaue = {
@@ -29,7 +29,7 @@ const LoginPage:React.FC = () => {
         },
         resolver: yupResolver(schema),
     }));
-    const { register, handleSubmit, formState } = form
+    const { register, handleSubmit, formState, getValues } = form
     const { errors } = formState;
 
     const onSubmit = (data: formVlaue) => {
@@ -40,7 +40,7 @@ const LoginPage:React.FC = () => {
         <React.Fragment>
             <Paper elevation={4} sx={{ width: 430, margin: "auto", paddingY: 2 }}>
                 <Divider>
-                    <Chip icon={<Face2Icon />} label="Login" variant='outlined' color='primary' />
+                    <Chip icon={<SchoolIcon />} label="Admin" variant='outlined' color='primary' />
                 </Divider>
                 <Typography variant='h5' display={"block"} m={"auto"} padding={2}>
                     Login To Continue
@@ -68,7 +68,7 @@ const LoginPage:React.FC = () => {
                                 </InputAdornment>
                             }}
                         />
-                        <Button type='submit' variant='contained' disabled={!register("email") || !register("password")}>Submit</Button>
+                        <Button type='submit' variant='contained' disabled={!getValues("email") || !getValues("password")}>Submit</Button>
                     </Stack>
                 </form>
             </Paper>
