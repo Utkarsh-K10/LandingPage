@@ -1,5 +1,7 @@
 const {body, validationResult} = require("express-validator");
 
+// user registration validation
+// step -1 rules
 const registerValidationRule = ()=>{
     return [
         // username validation
@@ -16,7 +18,8 @@ const registerValidationRule = ()=>{
     ]
 }
 
-const registerValidator = (req, res, next)=>{
+// step-2 error handling
+const registerValidator = async(req, res, next)=>{
     const errors = validationResult(req)
     if(errors.isEmpty()){
         return next()
@@ -27,6 +30,9 @@ const registerValidator = (req, res, next)=>{
         errors:extractedErrors,
     })
 }
+
+
+// login middleware
 
 module.exports = {
     registerValidationRule,
