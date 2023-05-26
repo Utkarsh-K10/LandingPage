@@ -23,14 +23,7 @@ let userSchema = new schema({
     hashedPassword: {
         type: String,
         required: true
-    },
-
-    tokens:[{
-        token: {
-            type: String,
-            default: null
-        },
-    }]  
+    },  
 },
     {
         timestamps: true,
@@ -45,17 +38,6 @@ let userSchema = new schema({
 //     console.log(this.hashedPassword);
 
 // })
-userSchema.methods.generateAuthtoken = async function(){
-    try {
-        const ttoken = jwt.sign({_id:this._id.toString()}, process.env.JWT_SCERET)
-        this.tokens = this.tokens.concate({token:ttoken})
-        await this.save()
-        return ttoken
-    } catch (error) {
-        console.log(error)
-    }
-
-}
 // userSchema.methods = {
 //     encryptPassword: function (password) {
 //         if (!password)
