@@ -38,6 +38,7 @@ exports.register = async (req, res) => {
         email,
         hashedPassword: myEncrptPass,
     })
+    
     user.hashedPassword = undefined
     res.status(201).json({
         message: "registration successful! please login",
@@ -61,8 +62,8 @@ exports.login = async (req, res) => {
                 })
             }
             // jwt generation
-            const token = jwt.sign({ _id: user._id }, process.env.JSW_SECRET, { expiresIn: "24h" })
-            
+            const token = jwt.sign({ _id: user._id }, process.env.JST_SECRET, { expiresIn: "24h" })
+
             // store token in cookie
             res.cookie("jwt", token, { expires: new Date(Date.now() + 9999), httpOnly: true })
 
