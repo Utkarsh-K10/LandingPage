@@ -4,7 +4,8 @@ const schema = mongoose.Schema;
 const jwt = require("jsonwebtoken")
 require("dotenv")
 
-let userSchema = new schema({
+let userSchema = new schema(
+    {
     username: {
         type: String,
         required: true,
@@ -18,16 +19,19 @@ let userSchema = new schema({
         trim: true,
         unique: true,
         lowercase: true,
+        validate: {
+            validator: function (v) {
+                return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(v);
+            },
+        },
     },
-
-    hashedPassword: {
-        type: String,
-        required: true
-    },  
+    hashedPassword: {type: String, minlength:6, required: true},
+    token: String,
+    
 },
     {
         timestamps: true,
-    })
+    });
 
 // userSchema.virtual("password").set(function (password) {
 //     // creating temp variable password
