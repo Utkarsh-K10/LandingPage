@@ -25,8 +25,14 @@ app.use(cookieParser())
 
 
 // routes
-const register = require("./routes/user");
-app.use("/", register);
+// *user routers
+const userRouter = require("./routes/user");
+app.use("/", userRouter);
+
+// *product routes
+const productRouter = require("./routes/product")
+app.use("/", productRouter);
+
 
 // port
 const port = process.env.PORT || 4000;

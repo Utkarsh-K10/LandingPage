@@ -9,7 +9,7 @@ let product = new schema(
             required:true
         },
         price:{
-            type:Integer,
+            type:Number,
             required:true,
             trim:true
         }

@@ -12,4 +12,5 @@ const {registerValidationRule, registerValidator} = require("../middlewares/user
 router.post("/register", registerValidationRule(), registerValidator ,register);
 router.post('/login', login);
 
+// exports.router = router;
 module.exports = router;
