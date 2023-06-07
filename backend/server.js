@@ -31,7 +31,7 @@ app.use("/", userRouter);
 
 // *product routes
 const productRouter = require("./routes/product")
-app.use("/", productRouter);
+app.use("/products", productRouter);
 
 
 // port

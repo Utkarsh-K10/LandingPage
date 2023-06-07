@@ -34,7 +34,45 @@ exports.getAllproducts = async (req, res) => {
         .then((doc) => {
             res.status(201).json(doc)
         })
-        .catch((err)=>{
-            res.status(404).json({error:err})
+        .catch((err) => {
+            res.status(404).json({ error: err })
         })
 }
+
+//*get by id
+exports.getbyId = async (req, res) => {
+    const id = req.params.id
+    await Product.findById(id)
+        .then((doc) => {
+            res.status(201).json(doc)
+        })
+        .catch((err) => {
+            res.status(403).json(err)
+        })
+}
+
+// replace product /edit
+exports.replaceProduct = async (req, res) => {
+    const id = req.params.id;
+    console.log({id})
+    try {
+        const doc = await Product.findOneAndReplace({_id:id}, req.body, {new:true})
+        res.status(201).json(doc)
+    } catch (error) {
+        res.status(400).json(error)
+    }
+}
+
+// update products
+exports.updateProduct = async(req, res) =>{
+    const id = req.params.id
+    console.log({id})
+    try {
+        const doc = await Product.findByIdAndUpdate({_id:id}, req.body, {new:true})
+        res.status(201).json(doc)
+    } catch (error) {
+        res.status(400).json(error)        
+    }
+}
+
+// delete product
