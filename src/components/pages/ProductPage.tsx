@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Divider, Paper, Table, TableBody, TableContainer, TableHead, TableRow, TableCell, Container, Button, Box, Typography } from '@mui/material'
+import { Divider, Paper, Table, TableBody, TableContainer, Link, TableHead, TableRow, TableCell, Container, Button, Box, Typography } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 const ProductPage: React.FC = () => {
@@ -17,13 +17,14 @@ const ProductPage: React.FC = () => {
     useEffect(() => {
         getProduct()
     }, [])
-console.log(product)
+    console.log(product)
     return (
         <React.Fragment>
-            <Container sx={{marginTop:10}}>
+            <Container sx={{ marginTop: 10 }}>
                 <Typography variant='h3' fontWeight={49}> All Products Table</Typography>
-                <Box>Add Another Product
-                    <Button  size='small' >Add Product</Button>
+                <Box>
+                    Add Another Product
+                    <Button><Link component={Button} href="/products/addproduct" underline="hover">Add Product</Link></Button>
                 </Box>
                 <Divider />
                 <TableContainer component={Paper}>
@@ -49,8 +50,8 @@ console.log(product)
                                                     {values['product_name']}
                                                 </TableCell>
                                                 <TableCell align="center">{values['price']}</TableCell>
-                                                <TableCell align="center"><Button variant="outlined" size='small' startIcon = {<EditIcon/>} >Edit</Button></TableCell>
-                                                <TableCell align="center" ><Button variant="outlined" startIcon= {<DeleteIcon/>} size='small'> Delete</Button></TableCell>
+                                                <TableCell align="center"><Button variant="outlined" size='small' startIcon={<EditIcon />} >Edit</Button></TableCell>
+                                                <TableCell align="center" ><Button variant="outlined" startIcon={<DeleteIcon />} size='small'> Delete</Button></TableCell>
                                             </TableRow>
                                         }
                                     </TableBody>

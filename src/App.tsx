@@ -9,6 +9,7 @@ import SignupPage from './components/pages/SignupPage'
 import AdminPage from './components/pages/AdminPage'
 import UserLoginPage from './components/pages/UserLoginPage'
 import ProductPage from './components/pages/ProductPage'
+import AddProductPage from './components/pages/AddProductPage'
 
 export const App = ()=> {
   return(
@@ -22,6 +23,7 @@ export const App = ()=> {
         <Route path='/admin' element = {<AdminPage />}/>
         <Route path='/user/login' element = {<UserLoginPage/>}/>
         <Route path='/products' element = {<ProductPage/>}/>
+        <Route path='/products/addproduct' element = {<AddProductPage/>} />
       </Routes>
     </React.Fragment>
   )
