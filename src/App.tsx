@@ -6,8 +6,9 @@ import AdminLoginPage from './components/pages/AdminLoginPage'
 import { Header } from './components/Header'
 import EnquiryPage from './components/pages/EnquiryPage'
 import SignupPage from './components/pages/SignupPage'
-import AdminPage from './components/pages/adminPage'
+import AdminPage from './components/pages/AdminPage'
 import UserLoginPage from './components/pages/UserLoginPage'
+import ProductPage from './components/pages/ProductPage'
 
 export const App = ()=> {
   return(
@@ -18,8 +19,9 @@ export const App = ()=> {
         <Route path='/admin/login' element={<AdminLoginPage/>}/>
         <Route path='/admission' element={<EnquiryPage/>}/>
         <Route path='/admin/signup' element = {<SignupPage/>}/>
-        <Route path='/admin' element = {<AdminPage/>}/>
+        <Route path='/admin' element = {<AdminPage />}/>
         <Route path='/user/login' element = {<UserLoginPage/>}/>
+        <Route path='/products' element = {<ProductPage/>}/>
       </Routes>
     </React.Fragment>
   )

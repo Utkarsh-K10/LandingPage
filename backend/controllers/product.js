@@ -76,3 +76,14 @@ exports.updateProduct = async(req, res) =>{
 }
 
 // delete product
+exports.deleteProduct = async(req, res) => {
+    const id  = req.params.id 
+    try {
+        // const doc = await Product.findOneAndDelete({_id:id})
+        const doc = await Product.findByIdAndDelete({_id:id})
+        res.status(201).json({message:"deleted successfully!"})
+    } catch (error) {
+        console.log(error)
+        res.status(400).json(error)
+    }
+}
