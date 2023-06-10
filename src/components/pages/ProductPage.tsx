@@ -17,7 +17,20 @@ const ProductPage: React.FC = () => {
     useEffect(() => {
         getProduct()
     }, [])
+
+    // const id = product?.filter((item)=>{item['_id']})
+    // console.log(id)
+    const handleDelete = async(id:String) => {
+        try {
+            const res = await axios.delete(`http://localhost:8080/products/${id}`)
+            console.log(res.data)   
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     console.log(product)
+
     return (
         <React.Fragment>
             <Container sx={{ marginTop: 10 }}>
@@ -31,8 +44,8 @@ const ProductPage: React.FC = () => {
                     <Table sx={{ minWidth: 550 }} aria-label="simple table">
                         <TableHead>
                             <TableRow>
-                                <TableCell>Product Name</TableCell>
-                                <TableCell align="center">Price</TableCell>
+                                <TableCell >Product Name</TableCell>
+                                <TableCell align="center">Price $</TableCell>
                                 <TableCell align="center">Edit</TableCell>
                                 <TableCell align="center">Delete</TableCell>
                             </TableRow>
@@ -51,7 +64,7 @@ const ProductPage: React.FC = () => {
                                                 </TableCell>
                                                 <TableCell align="center">{values['price']}</TableCell>
                                                 <TableCell align="center"><Button variant="outlined" size='small' startIcon={<EditIcon />} >Edit</Button></TableCell>
-                                                <TableCell align="center" ><Button variant="outlined" startIcon={<DeleteIcon />} size='small'> Delete</Button></TableCell>
+                                                <TableCell align="center" ><Button variant="outlined" startIcon={<DeleteIcon />} size='small' onClick={()=>handleDelete(values['_id'])}> Delete</Button></TableCell>
                                             </TableRow>
                                         }
                                     </TableBody>

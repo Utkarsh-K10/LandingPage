@@ -1,4 +1,4 @@
-import { Button, Chip, Divider, Paper, Stack, TextField, Typography, Alert } from '@mui/material'
+import { Button, Chip, Divider, Paper, Stack, TextField, Typography} from '@mui/material'
 import React from 'react'
 import * as yup from "yup"
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -27,12 +27,16 @@ const AddProductPage: React.FC = () => {
     }));
     const { register, handleSubmit, formState, getValues } = form;
     const { errors} = formState;
-    const onSubmit = (data: formValue) => {
+    const onSubmit = async(data: formValue) => {
         console.log(data);
         try {
-            axios.post(`http://localhost:8080/products/`,{"product_name":data.product_name, "price":data.price }).then(()=>{<Alert severity="success">Success - Product added !</Alert>}).catch((error)=>{error})
-        } catch (error) {
+            const response = await axios.post(`http://localhost:8080/products/`, {"product_name":data.product_name, "price":data.price })
+            console.log(response.data)
+            alert("Product addedd successfully")  
+        } 
+        catch (error) {
             return(error)
+            alert(`ohh ${error}`)
         }
     }
 
