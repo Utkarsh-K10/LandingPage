@@ -24,6 +24,7 @@ const ProductPage: React.FC = () => {
         try {
             const res = await axios.delete(`http://localhost:8080/products/${id}`)
             console.log(res.data)   
+            return res.data
         } catch (error) {
             console.log(error)
         }
