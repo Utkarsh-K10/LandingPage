@@ -20,11 +20,13 @@ const ProductPage: React.FC = () => {
 
     // const id = product?.filter((item)=>{item['_id']})
     // console.log(id)
-    const handleDelete = async(id:String) => {
+    const handleDelete = async (id: String) => {
         try {
-            const res = await axios.delete(`http://localhost:8080/products/${id}`)
-            console.log(res.data)   
-            return res.data
+            let res = await axios.delete(`http://localhost:8080/products/${id}`)
+            res = await res.data
+            console.warn(res)
+            getProduct()
+            alert("Prodcut Deleted!!")
         } catch (error) {
             console.log(error)
         }
@@ -65,7 +67,7 @@ const ProductPage: React.FC = () => {
                                                 </TableCell>
                                                 <TableCell align="center">{values['price']}</TableCell>
                                                 <TableCell align="center"><Button variant="outlined" size='small' startIcon={<EditIcon />} >Edit</Button></TableCell>
-                                                <TableCell align="center" ><Button variant="outlined" startIcon={<DeleteIcon />} size='small' onClick={()=>handleDelete(values['_id'])}> Delete</Button></TableCell>
+                                                <TableCell align="center" ><Button variant="outlined" startIcon={<DeleteIcon />} size='small' onClick={() => handleDelete(values['_id'])}> Delete</Button></TableCell>
                                             </TableRow>
                                         }
                                     </TableBody>

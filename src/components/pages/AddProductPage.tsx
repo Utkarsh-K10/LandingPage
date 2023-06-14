@@ -27,6 +27,7 @@ const AddProductPage: React.FC = () => {
     }));
     const { register, handleSubmit, formState, getValues } = form;
     const { errors} = formState;
+
     const onSubmit = async(data: formValue) => {
         console.log(data);
         try {
@@ -34,9 +35,9 @@ const AddProductPage: React.FC = () => {
             console.log(response.data)
             alert("Product addedd successfully")  
         } 
-        catch (error) {
-            return(error)
-            alert(`ohh ${error}`)
+        catch (err) {
+                console.log(err)
+                alert("Product Already exists")
         }
     }
 
