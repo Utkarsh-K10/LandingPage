@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Divider, Paper, Table, TableBody, TableContainer, Link, TableHead, TableRow, TableCell, Container, Button, Box, Typography } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+
 const ProductPage: React.FC = () => {
     const [product, setProduct] = useState<[] | undefined>()
 
@@ -25,14 +26,17 @@ const ProductPage: React.FC = () => {
             let res = await axios.delete(`http://localhost:8080/products/${id}`)
             res = await res.data
             console.warn(res)
-            getProduct()
-            alert("Prodcut Deleted!!")
+            // getProduct()
+            return(alert("Prodcut Deleted!!"))
         } catch (error) {
             console.log(error)
         }
     }
-
     console.log(product)
+
+    const handleEdit =async (id: String) => {
+        return(console.log(`Product Updated ${id}`))
+    }
 
     return (
         <React.Fragment>
@@ -66,7 +70,7 @@ const ProductPage: React.FC = () => {
                                                     {values['product_name']}
                                                 </TableCell>
                                                 <TableCell align="center">{values['price']}</TableCell>
-                                                <TableCell align="center"><Button variant="outlined" size='small' startIcon={<EditIcon />} >Edit</Button></TableCell>
+                                                <TableCell align="center"><Button variant="outlined" size='small' startIcon={<EditIcon />}  onClick={()=> handleEdit(values['_id'])}>Edit</Button></TableCell>
                                                 <TableCell align="center" ><Button variant="outlined" startIcon={<DeleteIcon />} size='small' onClick={() => handleDelete(values['_id'])}> Delete</Button></TableCell>
                                             </TableRow>
                                         }
