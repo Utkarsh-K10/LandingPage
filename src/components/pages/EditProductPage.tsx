@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import LocalMallIcon from '@mui/icons-material/LocalMall';
+import axios from 'axios';
 
 // yup form schema
 const formschema = yup.object().shape({
@@ -25,13 +26,18 @@ const EditProductPage:React.FC = () => {
     const form = useForm<formValue>(({
         resolver:yupResolver(formschema)
     }))
-    const { register, handleSubmit, formState, getValues } = form;
+    const { register, handleSubmit,formState, getValues } = form;
     const { errors} = formState;
-    const onSubmit = async()=>{
-        return(
-            console.log("Edited")
-        )
+
+    const onSubmit = async(data:formValue)=>{
+        try {
+            const resp = await axios.put(`http://localhost:8080/products/`, {product_name :data.product_name , price:data.price })   
+            return(()=>resp.data)
+        } catch (error) {
+            return(()=>error)
+        }
     }
+
   return (
     <React.Fragment>
         <Modal open = {open} onClose={handleClose}>
