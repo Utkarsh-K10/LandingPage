@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Divider, Paper, Table, TableBody, TableContainer, Link, TableHead, TableRow, TableCell, Container, Button, Box, Typography, Modal, TextField, Stack, Chip } from '@mui/material'
+import { Divider, Paper, Table, TableBody, TableContainer, Link, TableHead, TableRow, TableCell, Container, Button, Box, Typography } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import HandymanIcon from '@mui/icons-material/Handyman';
+import FormModal from '../FormModal';
+
+type ProdcutValue = {
+    id: any | null
+    product_name: string
+    price: number
+}
 
 const ProductPage: React.FC = () => {
-    const [product, setProduct] = useState<[] | undefined>()
-    const [open, setOpen] = useState(false)
-    const handleEdit = () => setOpen(true)
-    const closeHandler = () => setOpen(false)
+    const [product, setProduct] = useState<Array<ProdcutValue>>()
+    // Edit handler
+    const handleEdit = () => {
+        console.log("edited")
+    }
 
     const getProduct = async () => {
         await axios.get("http://localhost:8080/products")
@@ -37,7 +44,7 @@ const ProductPage: React.FC = () => {
             console.log(error)
         }
     }
-    console.log(product)
+    console.log('This is Product Values: ', product)
 
 
     return (
@@ -62,18 +69,18 @@ const ProductPage: React.FC = () => {
                         {
                             product?.map((values) => {
                                 return (
-                                    <TableBody>
+                                    <TableBody >
                                         {
                                             <TableRow
-                                                key={values['_id']}
+                                                key={values['id']}
                                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                             >
                                                 <TableCell component="th" scope="row">
                                                     {values['product_name']}
                                                 </TableCell>
                                                 <TableCell align="center">{values['price']}</TableCell>
-                                                <TableCell align="center"><Button variant="outlined" size='small' startIcon={<EditIcon />} onClick={handleEdit}>Edit</Button></TableCell>
-                                                <TableCell align="center" ><Button variant="outlined" startIcon={<DeleteIcon />} size='small' onClick={() => handleDelete(values['_id'])}> Delete</Button></TableCell>
+                                                <TableCell align="center"><Button variant="outlined" size='small' startIcon={<EditIcon />} onClick={() => handleEdit()}>Edit</Button></TableCell>
+                                                <TableCell align="center" ><Button variant="outlined" startIcon={<DeleteIcon />} size='small' onClick={() => handleDelete(values['id'])}> Delete</Button></TableCell>
                                             </TableRow>
                                         }
                                     </TableBody>
@@ -83,24 +90,6 @@ const ProductPage: React.FC = () => {
                     </Table>
                 </TableContainer>
                 {/* Model to edit product  */}
-                <Modal open={open} onClose={closeHandler}>
-                    <Paper elevation={4} sx={{ width: 430, paddingY: 2, position:"absolute", top:'50%', left:'50%', transform: 'translate(-50%, -50%)'}}>
-                        <Divider>
-                            <Chip icon={<HandymanIcon />} label="Vendor" variant='outlined' color='primary' />
-                        </Divider>
-                        <Typography variant='h5' display={"block"} m={"auto"} padding={2}>
-                            Edit Product
-                        </Typography>
-                        <Divider />
-                        <form  noValidate>
-                            <Stack spacing={2} width={400} margin={"auto"} marginTop={2}>
-                                <TextField label="Mobile Name" variant='outlined' type='text' />
-                                <TextField label="$ Price" variant='outlined' type='text' />
-                                <Button type='submit' variant='contained'>Submit</Button>
-                            </Stack>
-                        </form>
-                    </Paper>
-                </Modal>
             </Container>
         </React.Fragment>
     )

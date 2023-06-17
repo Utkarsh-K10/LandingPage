@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Chip, Divider, Modal, Paper, Stack, TextField, Typography } from '@mui/material'
+import { BackdropProps, Button, Chip, Divider, Modal, Paper, Stack, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -37,7 +37,7 @@ const EditProductPage:React.FC = () => {
             return(()=>error)
         }
     }
-
+    
   return (
     <React.Fragment>
         <Modal open = {open} onClose={handleClose}>
