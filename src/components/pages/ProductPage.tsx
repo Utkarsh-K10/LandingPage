@@ -1,28 +1,127 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Divider, Paper, Table, TableBody, TableContainer, Link, TableHead, TableRow, TableCell, Container, Button, Box, Typography } from '@mui/material'
+import { Box, Button, Container, Divider, IconButton, Link, Paper, Table, TableBody, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
+import { styled } from '@mui/material';
+import TableFooter from '@mui/material/TableFooter';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import FormModal from '../FormModal';
+import TablePagination from '@mui/material/TablePagination';
+import { useTheme } from '@mui/material/styles';
+import FirstPageIcon from '@mui/icons-material/FirstPage';
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import LastPageIcon from '@mui/icons-material/LastPage';
 
-type ProdcutValue = {
-    id: any | null
-    product_name: string
-    price: number
+// type ProdcutValue = {
+//     id: any
+//     product_name: string
+//     price: number
+// }
+
+interface TablePaginationActionsProps {
+    count: number;
+    page: number;
+    rowsPerPage: number;
+    onPageChange: (
+        event: React.MouseEvent<HTMLButtonElement>,
+        newPage: number,
+    ) => void;
 }
 
-const ProductPage: React.FC = () => {
-    const [product, setProduct] = useState<Array<ProdcutValue>>()
-    // Edit handler
-    const handleEdit = () => {
-        console.log("edited")
-    }
+function TablePaginationActions(props: TablePaginationActionsProps) {
+    const theme = useTheme();
+    const { count, page, rowsPerPage, onPageChange } = props;
 
+    const handleFirstPageButtonClick = (
+        event: React.MouseEvent<HTMLButtonElement>,
+    ) => {
+        onPageChange(event, 0);
+    };
+
+    const handleBackButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        onPageChange(event, page - 1);
+    };
+
+    const handleNextButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        onPageChange(event, page + 1);
+    };
+
+    const handleLastPageButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
+    };
+
+    return (
+        <Box sx={{ flexShrink: 0, ml: 2.5 }}>
+            <IconButton
+                onClick={handleFirstPageButtonClick}
+                disabled={page === 0}
+                aria-label="first page"
+            >
+                {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
+            </IconButton>
+            <IconButton
+                onClick={handleBackButtonClick}
+                disabled={page === 0}
+                aria-label="previous page"
+            >
+                {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+            </IconButton>
+            <IconButton
+                onClick={handleNextButtonClick}
+                disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+                aria-label="next page"
+            >
+                {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+            </IconButton>
+            <IconButton
+                onClick={handleLastPageButtonClick}
+                disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+                aria-label="last page"
+            >
+                {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
+            </IconButton>
+        </Box>
+    );
+}
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+        backgroundColor: theme.palette.common.black,
+        color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+        fontSize: 14,
+    },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    '&:last-child td, &:last-child th': {
+        border: 0,
+    },
+}));
+
+
+
+const ProductPage: React.FC = () => {
+
+    const [product, setProduct] = useState([])
+    const [rows, setRows] = useState([])
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows?.length) : 0;
+
+    // Get all product handler
     const getProduct = async () => {
         await axios.get("http://localhost:8080/products")
             .then((response) => {
                 setProduct(response.data)
+                setRows(response.data)
             })
             .catch((error) => { return error })
     }
@@ -31,9 +130,7 @@ const ProductPage: React.FC = () => {
         getProduct()
     }, [])
 
-    // const id = product?.filter((item)=>{item['_id']})
-    // console.log(id)
-    const handleDelete = async (id: String) => {
+    const handleDelete = async (id: any) => {
         try {
             let res = await axios.delete(`http://localhost:8080/products/${id}`)
             res = await res.data
@@ -44,12 +141,25 @@ const ProductPage: React.FC = () => {
             console.log(error)
         }
     }
-    console.log('This is Product Values: ', product)
+
+    const handleChangePage = (
+        event: React.MouseEvent<HTMLButtonElement> | null,
+        newPage: number,
+    ) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (
+        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    ) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
 
 
     return (
         <React.Fragment>
-            <Container sx={{ marginTop: 10 }}>
+            {/* <Container sx={{ marginTop: 10 }}>
                 <Typography variant='h3' fontWeight={49}> All Products Table</Typography>
                 <Box boxShadow={2} border={'ActiveBorder'}>
                     Add Another Product
@@ -89,7 +199,83 @@ const ProductPage: React.FC = () => {
                         }
                     </Table>
                 </TableContainer>
-                {/* Model to edit product  */}
+            </Container> */}
+            <Container sx={{ marginTop: 10 }}>
+                <Typography variant='h3' fontWeight={49}> All Products Table</Typography>
+                <Box boxShadow={2} border={'ActiveBorder'}>
+                    Add Another Product
+                    <Button variant='outlined' size='small' sx={{ margin: 2 }}>
+                        <Link component={Button} href="/products/addproduct" underline="none" startIcon={<AddCircleIcon />}>
+                            Add
+                        </Link>
+                    </Button>
+                </Box>
+                <Divider />
+                <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 550 }} aria-label="simple table">
+                        <TableHead>
+                            <StyledTableRow>
+                                <StyledTableCell >Product Name</StyledTableCell>
+                                <StyledTableCell align="center">Price $</StyledTableCell>
+                                <StyledTableCell align="center">Edit</StyledTableCell>
+                                <StyledTableCell align="center">Delete</StyledTableCell>
+                            </StyledTableRow>
+                        </TableHead>
+                        <TableBody >
+                            {(rowsPerPage > 0
+                                ? product.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                : product)?.map((value) => {
+                                    return (
+                                        <TableRow
+                                            key={value['_id']}
+                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                        >
+                                            <TableCell component="th" scope="row">
+                                                {value['product_name']}
+                                            </TableCell>
+                                            <TableCell align="center">
+                                                {value['price']}
+                                            </TableCell>
+                                            <TableCell align="center">
+                                                <Button variant="outlined" size='small' startIcon={<EditIcon />}>Edit</Button>
+                                            </TableCell>
+                                            <TableCell align="center" >
+                                                <Button variant="outlined" startIcon={<DeleteIcon />} size='small' onClick={() => handleDelete(value['_id'])}>
+                                                    Delete
+                                                </Button>
+                                            </TableCell>
+                                        </TableRow>
+                                    )
+                                }
+                                )}
+                            {emptyRows > 0 && (
+                                <TableRow style={{ height: 53 * emptyRows }}>
+                                    <TableCell colSpan={6} />
+                                </TableRow>
+                            )}
+                        </TableBody>
+                        <TableFooter>
+                            <TableRow>
+                                <TablePagination
+                                    rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                                    colSpan={3}
+                                    count={rows.length}
+                                    rowsPerPage={rowsPerPage}
+                                    page={page}
+                                    SelectProps={{
+                                        inputProps: {
+                                            'aria-label': 'rows per page',
+                                        },
+                                        native: true,
+                                    }}
+                                    onPageChange={handleChangePage}
+                                    onRowsPerPageChange={handleChangeRowsPerPage}
+                                    ActionsComponent={TablePaginationActions}
+                                />
+                            </TableRow>
+                        </TableFooter>
+                    </Table>
+                </TableContainer>
             </Container>
         </React.Fragment>
     )
