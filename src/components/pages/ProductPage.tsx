@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Box, Button, Container, Divider, IconButton, Link, Paper, Table, TableBody, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
+import { Box, Button, Chip, Container, Divider, IconButton, Link, Modal, Paper, Stack, Table, TableBody, TableContainer, TableHead, TableRow, TextField, Typography } from '@mui/material'
 import { styled } from '@mui/material';
 import TableFooter from '@mui/material/TableFooter';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
@@ -13,6 +13,8 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
+// import HandymanIcon from '@mui/icons-material/Handyman';
+import AddProductPage from './AddProductPage';
 
 // type ProdcutValue = {
 //     id: any
@@ -115,6 +117,14 @@ const ProductPage: React.FC = () => {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows?.length) : 0;
+    const [open, setOpen] = useState(false)
+    const handleAddOpen = () => {
+        setOpen(true)
+    }
+    const closeHandler = () => {
+        setOpen(false)
+    }
+
 
     // Get all product handler
     const getProduct = async () => {
@@ -201,19 +211,23 @@ const ProductPage: React.FC = () => {
                 </TableContainer>
             </Container> */}
             <Container sx={{ marginTop: 10 }}>
-                <Typography variant='h3' fontWeight={49}> All Products Table</Typography>
-                <Box boxShadow={2} border={'ActiveBorder'}>
-                    Add Another Product
-                    <Button variant='outlined' size='small' sx={{ margin: 2 }}>
-                        <Link component={Button} href="/products/addproduct" underline="none" startIcon={<AddCircleIcon />}>
-                            Add
-                        </Link>
-                    </Button>
-                </Box>
                 <Divider />
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 550 }} aria-label="simple table">
                         <TableHead>
+                            <StyledTableRow>
+                                <StyledTableCell colSpan={2}>
+                                    <Typography variant="body1" fontSize={20} fontWeight={10}> Manage Products</Typography>
+                                </StyledTableCell>
+                                <StyledTableCell colSpan={2} align="right">
+                                    <Button variant="outlined" size='small' onClick={handleAddOpen} startIcon={<AddCircleIcon />}>
+                                        {/* <Link component={Button} href="/products/addproduct" underline="none" startIcon={<AddCircleIcon />}>
+                                            Add
+                                        </Link> */}
+                                        Add
+                                    </Button>
+                                </StyledTableCell>
+                            </StyledTableRow>
                             <StyledTableRow>
                                 <StyledTableCell >Product Name</StyledTableCell>
                                 <StyledTableCell align="center">Price $</StyledTableCell>
@@ -276,6 +290,16 @@ const ProductPage: React.FC = () => {
                         </TableFooter>
                     </Table>
                 </TableContainer>
+                <div>
+                    <Modal open={open} onClose={closeHandler}>
+                        <Paper variant="outlined" sx={{ maxWidth: "md", width: 410, paddingY: 2, position: "absolute", top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+                            <Stack spacing={2} width={400} margin={"auto"} marginTop={2}>
+                                <AddProductPage />
+                                <Button onClick={closeHandler} variant="outlined" fullWidth size="small">Close</Button>
+                            </Stack>
+                        </Paper>
+                    </Modal>
+                </div>
             </Container>
         </React.Fragment>
     )

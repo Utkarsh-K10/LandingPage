@@ -4,20 +4,20 @@ import HandymanIcon from '@mui/icons-material/Handyman';
 
 
 
-type ProdcutValue = {
-    id: any | null
-    product_name: string
-    price: number
-}
+// type ProdcutValue = {
+//     id: any | null
+//     product_name: string
+//     price: number
+// }
 
 const FormModal: React.FC = () => {
 
-    const [product, setProduct] = useState<Array<ProdcutValue>>()
-    const [open, setOpen] = useState(false)
-    const [pid, setPid] = useState<ProdcutValue>()
-    const [pname, setPname] = useState<ProdcutValue>()
-    const [price, setPrice] = useState<ProdcutValue>()
+    const [product, setProduct] = useState([])
+    const [pid, setPid] = useState()
+    const [pname, setPname] = useState()
+    const [price, setPrice] = useState()
     
+    const [open, setOpen] = useState(false)
     const closeHandler = ()=>{
         setOpen(false)
     }
