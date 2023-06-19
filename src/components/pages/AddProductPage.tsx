@@ -1,9 +1,8 @@
-import { Button, Chip, Divider, Link, Paper, Stack, TextField, Typography } from '@mui/material'
+import { Button, Chip, Divider, Stack, TextField, Typography } from '@mui/material'
 import React from 'react'
 import * as yup from "yup"
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-// import LocalMallIcon from '@mui/icons-material/LocalMall';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import axios from 'axios';
 
@@ -26,6 +25,7 @@ const AddProductPage: React.FC = () => {
         },
         resolver: yupResolver(schema),
     }));
+
     const { register, handleSubmit, formState, getValues } = form;
     const { errors } = formState;
 
@@ -34,7 +34,9 @@ const AddProductPage: React.FC = () => {
         try {
             const response = await axios.post(`http://localhost:8080/products/`, { "product_name": data.product_name, "price": data.price })
             console.log(response.data)
-            alert("Product addedd successfully")
+            return(
+                alert("Product addedd successfully")
+            )
         }
         catch (err) {
             console.log(err)

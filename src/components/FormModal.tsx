@@ -21,6 +21,7 @@ const FormModal: React.FC = () => {
     const closeHandler = ()=>{
         setOpen(false)
     }
+    
     return (
         <React.Fragment>
             <Modal open={open} onClose={closeHandler}>
