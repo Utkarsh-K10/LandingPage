@@ -11,12 +11,19 @@ const schema = yup.object().shape({
     price: yup.number().required("Enter Price of the product")
 });
 
+interface productProps {
+    productmsg: {
+        success: string,
+        error: string
+    }
+}
+
 type formValue = {
     product_name: string,
     price: number
 }
 
-const AddProductPage: React.FC = () => {
+const AddProductPage: React.FC<productProps> = ({ productmsg }:productProps) => {
 
     const form = useForm<formValue>(({
         defaultValues: {
@@ -34,13 +41,13 @@ const AddProductPage: React.FC = () => {
         try {
             const response = await axios.post(`http://localhost:8080/products/`, { "product_name": data.product_name, "price": data.price })
             console.log(response.data)
-            return(
-                alert("Product addedd successfully")
+            return (
+                alert(productmsg.success)
             )
         }
         catch (err) {
             console.log(err)
-            alert("Product Already exists")
+            alert(productmsg.error)
         }
     }
 
@@ -53,7 +60,7 @@ const AddProductPage: React.FC = () => {
                 <Typography variant="h6" align="center" display={"block"} m={"auto"} padding={1}>
                     Add New Product
                 </Typography>
-                <Divider />               
+                <Divider />
                 <form onSubmit={handleSubmit(onSubmit)} noValidate>
                     <Stack spacing={2} width={400} margin={"auto"} marginTop={2}>
                         <TextField label="Mobile Name" size='small' variant='outlined' type='text' {...register("product_name")} helperText={errors.product_name?.message} />

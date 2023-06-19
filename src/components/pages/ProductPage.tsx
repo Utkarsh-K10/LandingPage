@@ -102,7 +102,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 
-
 const ProductPage: React.FC = () => {
 
     const [product, setProduct] = useState([])
@@ -111,6 +110,8 @@ const ProductPage: React.FC = () => {
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows?.length) : 0;
     const [open, setOpen] = useState(false)
+
+    const productmsg = { success: " Sucess! Product added ", error: "Product already exists" }
 
     const handleAddOpen = () => {
         setOpen(true)
@@ -148,7 +149,7 @@ const ProductPage: React.FC = () => {
     }
 
     const handleChangePage = (
-        event : React.MouseEvent<HTMLButtonElement> | null,
+        event: React.MouseEvent<HTMLButtonElement> | null,
         newPage: number,
     ) => {
         setPage(newPage);
@@ -166,12 +167,12 @@ const ProductPage: React.FC = () => {
         <React.Fragment>
             <Container sx={{ marginTop: 10 }}>
                 <Divider />
-                <TableContainer component={Paper}>
+                <TableContainer component={Paper} elevation={5}>
                     <Table sx={{ minWidth: 550 }} aria-label="simple table">
                         <TableHead>
                             <StyledTableRow>
                                 <StyledTableCell colSpan={2}>
-                                    <Typography variant="body1" fontSize={20} fontWeight={10}> Manage Products</Typography>
+                                    <Typography variant="body1" fontSize={20} fontWeight={100}> Manage Products</Typography>
                                 </StyledTableCell>
                                 <StyledTableCell colSpan={2} align="right">
                                     <Button variant="outlined" size='small' onClick={handleAddOpen} startIcon={<AddCircleIcon />}>
@@ -245,7 +246,7 @@ const ProductPage: React.FC = () => {
                     <Modal open={open} onClose={closeHandler}>
                         <Paper variant="outlined" sx={{ maxWidth: "md", width: 410, paddingY: 2, position: "absolute", top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
                             <Stack spacing={2} width={400} margin={"auto"} marginTop={2}>
-                                <AddProductPage />
+                                <AddProductPage productmsg={productmsg}/>
                                 <Button onClick={closeHandler} variant="outlined" fullWidth size="small">Close</Button>
                             </Stack>
                         </Paper>
