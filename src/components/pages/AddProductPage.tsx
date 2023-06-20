@@ -23,7 +23,7 @@ type formValue = {
     price: number
 }
 
-const AddProductPage: React.FC<productProps> = ({ productmsg }:productProps) => {
+const AddProductPage: React.FC<productProps> = ({ productmsg }: productProps) => {
 
     const form = useForm<formValue>(({
         defaultValues: {
@@ -36,20 +36,21 @@ const AddProductPage: React.FC<productProps> = ({ productmsg }:productProps) => 
     const { register, handleSubmit, formState, getValues } = form;
     const { errors } = formState;
 
-    const onSubmit = async (data: formValue) => {
-        console.log(data);
+    const onSubmitbutton = async (data: formValue) => {
         try {
             const response = await axios.post(`http://localhost:8080/products/`, { "product_name": data.product_name, "price": data.price })
             console.log(response.data)
-            return (
+            return(
                 alert(productmsg.success)
             )
         }
+
         catch (err) {
             console.log(err)
             alert(productmsg.error)
         }
     }
+
 
     return (
         <React.Fragment>
@@ -61,7 +62,7 @@ const AddProductPage: React.FC<productProps> = ({ productmsg }:productProps) => 
                     Add New Product
                 </Typography>
                 <Divider />
-                <form onSubmit={handleSubmit(onSubmit)} noValidate>
+                <form onSubmit={handleSubmit(onSubmitbutton)} noValidate>
                     <Stack spacing={2} width={400} margin={"auto"} marginTop={2}>
                         <TextField label="Mobile Name" size='small' variant='outlined' type='text' {...register("product_name")} helperText={errors.product_name?.message} />
                         <TextField label="$ Price" size='small' variant='outlined' type='text' {...register("price")} helperText={errors.price?.message} />
