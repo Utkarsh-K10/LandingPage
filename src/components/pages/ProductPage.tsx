@@ -111,7 +111,7 @@ const ProductPage: React.FC = () => {
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows?.length) : 0;
     const [open, setOpen] = useState(false)
 
-    const productmsg = { success: " Sucess! Product added ", error: "Product already exists" }
+    // const productmsg = { success: " Sucess! Product added ", error: "Product already exists" }
 
     const handleAddOpen = () => {
         setOpen(true)
@@ -246,7 +246,7 @@ const ProductPage: React.FC = () => {
                     <Modal open={open} onClose={closeHandler}>
                         <Paper variant="outlined" sx={{ maxWidth: "md", width: 410, paddingY: 2, position: "absolute", top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
                             <Stack spacing={2} width={400} margin={"auto"} marginTop={2}>
-                                <AddProductPage productmsg={productmsg}/>
+                                <AddProductPage/>
                                 <Button onClick={closeHandler} variant="outlined" fullWidth size="small">Close</Button>
                             </Stack>
                         </Paper>

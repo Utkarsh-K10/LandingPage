@@ -6,13 +6,13 @@ import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk';
 import { DrawerComp } from "./DrawerComp";
 // import {styled} from '@mui/material/styles'
 
-interface stateProp {
-    value?: number
-}
+// type valueProp = {
+//     value?: number| 0
+// }
 
 export const Header: React.FC = () => {
 
-    const [value, setValue] = React.useState<stateProp>({ value: 0 })
+    const [value, setValue] = React.useState(0)
     const theme = useTheme();
     const isMatch = useMediaQuery(theme.breakpoints.down("md"))
     return (
@@ -42,7 +42,7 @@ export const Header: React.FC = () => {
                                         variant="h5"
                                         alignItems={"center"}
                                     > R K Memorial Hr. Sec. School</Typography>
-                                    <Typography variant="caption" alignItems={"center"} justifyContent={"center"} display="block" color={"#121858"} sx={{ display: { xs: "block", sm: "block", md: "none" } }}>
+                                    <Typography variant="caption" alignItems={"center"} justifyContent={"center"} display="block" sx={{ display: { xs: "block", sm: "block", md: "none" } , color:"#121858"}}>
                                         DISE Code: 312241   Reg. No:1875
                                     </Typography>
                                 </Typography>
@@ -54,16 +54,16 @@ export const Header: React.FC = () => {
                                 <Typography variant="h6" fontWeight={70} color={"orangered"}> rkmemorialhss@gmail.com</Typography>
                                 <PhoneInTalkIcon color="warning" sx={{ marginLeft: "auto" }} />
                                 <Typography variant="body1" fontWeight={60} color={"orangered"}>7728988448</Typography>
-                                <Tabs sx={{ marginLeft: "auto" }} indicatorColor="secondary" value={value} onChange={(e: React.SyntheticEvent, value: stateProp) => { setValue(value) }} >
-                                    <Tab component="text" label="About Us" />
-                                    <Link component={Button} href="/admission" underline="hover">
-                                        <Tab component="text" label="Admission" />
+                                <Tabs sx={{ marginLeft: "auto" }} indicatorColor="secondary" value={value} onChange={(e: React.SyntheticEvent, value) => { setValue(value) }} >
+                                    <Tab key={0} component="text" label="About Us" />
+                                    <Link component={Button} href="/admission" underline="none" color={"orangered"}>
+                                        <Tab key={1} component="text" label="Admission" />
                                     </Link>
-                                    <Link component={Button} href="/products" underline="none">
-                                        <Tab component="text" label="Gallery" />
+                                    <Link component={Button} href="/products" underline="none" color={"orangered"}>
+                                        <Tab key={2} component="text" label="Gallery" />
                                     </Link>
-                                    <Link component={Button} href="/user/login" underline="hover">
-                                        <Tab component="text" label="Pay Fee" />
+                                    <Link component={Button} href="/user/login" underline="none" color={"orangered"}>
+                                        <Tab key={3} component="text" label="Pay Fee" />
                                     </Link>
                                 </Tabs>
                             </>
