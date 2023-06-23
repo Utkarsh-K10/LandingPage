@@ -1,65 +1,92 @@
-import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Chip, Divider, Modal, Paper, Stack, TextField, Typography } from '@mui/material'
-import React, { useState } from 'react'
-import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
+import { Button, Chip, Divider, Stack, TextField, Typography } from '@mui/material'
+import React, { useEffect, useState } from 'react'
 import LocalMallIcon from '@mui/icons-material/LocalMall';
 import axios from 'axios';
 
 // yup form schema
-const formschema = yup.object().shape({
-    product_name: yup.string().required("Please enter the product name"),
-    price: yup.number().required("Enter Price of the product")
-});
-
-type formValue =  {
-    product_name : String
+type formschema = {
+    product_name: string
     price: number
-
 }
 
+type productProp = {
+    pid: any
+}
 
-const EditProductPage:React.FC = () => {
+// #1 get data from api and fill in the field
+// #2 set data from the state from the axois data 
+// #3 getting the id from the table of the product page
 
-    const [ open, setOpen] = useState(false)
-    const handleClose = ()=>setOpen(true)
-    const form = useForm<formValue>(({
-        resolver:yupResolver(formschema)
-    }))
-    const { register, handleSubmit,formState, getValues } = form;
-    const { errors} = formState;
+const EditProductPage: React.FC<productProp> = ({ pid }) => {
 
-    const onSubmit = async(data:formValue)=>{
-        try {
-            const resp = await axios.put(`http://localhost:8080/products/`, {product_name :data.product_name , price:data.price })   
-            return(()=>resp.data)
-        } catch (error) {
-            return(()=>error)
-        }
+    const id = pid
+    const [product, setProduct] = useState<formschema>({
+        product_name: '',
+        price: 0
+    })
+
+    useEffect(() => {
+        axios.get(`http://localhost:8080/products/${id}`).
+            then((res) => {
+                setProduct(
+                    {
+                        product_name: res.data.product_name,
+                        price: res.data.price
+                    });
+            }).
+            catch((error) => console.log(error));
+    }, [id]);
+
+
+    const handleOnchange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setProduct({ ...product, [e.target.name]: e.target.value })
     }
-    
-  return (
-    <React.Fragment>
-        <Modal open = {open} onClose={handleClose}>
-        <Paper elevation={4} sx={{ width: 430, margin: "auto", paddingY: 2 }}>
+
+    const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+
+        e.preventDefault()
+
+        const pdata = {
+            product_name: product.product_name,
+            price: product.price
+        }
+
+        axios.put(`http://localhost:8080/products/${id}`, pdata)
+            .then((res) => { 
+                console.log(res.data)
+             })
+            .catch((error) => { console.log(error) })
+    }
+
+    // const onSubmit = async()=>{
+    //     try {
+    //         const resp = await axios.put(`http://localhost:8080/products/`, {product_name :data.product_name , price:data.price })   
+    //         return(()=>resp.data)
+    //     } catch (error) {
+    //         return(()=>error)
+    //     }
+    // }
+
+    return (
+        <React.Fragment>
+            <div>
                 <Divider>
                     <Chip icon={<LocalMallIcon />} label="Vendor" variant='outlined' color='primary' />
                 </Divider>
                 <Typography variant='h5' display={"block"} m={"auto"} padding={2}>
                     Fill Details to Add Product
                 </Typography>
-                <Divider/>
-                <form onSubmit={handleSubmit(onSubmit)} noValidate>
+                <Divider />
+                <form onSubmit={onSubmit} noValidate>
                     <Stack spacing={2} width={400} margin={"auto"} marginTop={2}>
-                        <TextField label="Mobile Name" variant='outlined' type='text' {...register("product_name")} helperText={errors.product_name?.message} />
-                        <TextField label="$ Price" variant='outlined' type='text' {...register("price")} helperText={errors.price?.message} />
-                        <Button type='submit' variant='contained' disabled={!getValues("product_name") || !getValues("price")}>Submit</Button>
+                        <TextField label="Mobile Name" variant='outlined' type='text' name="product_name" value={product.product_name} onChange={handleOnchange} />
+                        <TextField label="$ Price" variant='outlined' type='text' name="price" value={product.price} onChange={handleOnchange} />
+                        <Button type='submit' variant='contained'>Update</Button>
                     </Stack>
                 </form>
-            </Paper>
-        </Modal>
-    </React.Fragment>
-  )
+            </div>
+        </React.Fragment>
+    )
 }
 
 export default EditProductPage

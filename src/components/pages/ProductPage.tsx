@@ -14,6 +14,8 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import AddProductPage from './AddProductPage';
+import EditProductPage from './EditProductPage';
+import { useNavigate } from 'react-router-dom';
 
 interface TablePaginationActionsProps {
     count: number;
@@ -104,12 +106,15 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const ProductPage: React.FC = () => {
 
+    const navigate = useNavigate()
     const [product, setProduct] = useState([])
+    const [pid, setPid] = useState()
     const [rows, setRows] = useState([])
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows?.length) : 0;
     const [open, setOpen] = useState(false)
+    const [eopen, setEopen] = useState(false)
 
     // const productmsg = { success: " Sucess! Product added ", error: "Product already exists" }
 
@@ -120,7 +125,6 @@ const ProductPage: React.FC = () => {
         setOpen(false)
         getProduct()
     }
-
 
     // Get all product handler
     const getProduct = async () => {
@@ -134,7 +138,7 @@ const ProductPage: React.FC = () => {
 
     useEffect(() => {
         getProduct()
-    }, [])
+    },[])
 
     const handleDelete = async (id: any) => {
         try {
@@ -146,6 +150,16 @@ const ProductPage: React.FC = () => {
         } catch (error) {
             console.log(error)
         }
+    }
+
+    const handleEdit = (id: any) => {
+        setEopen(true)
+        setPid(id)
+    }
+
+    const handleEditClose = () => {
+        setEopen(false)
+        getProduct()
     }
 
     const handleChangePage = (
@@ -203,7 +217,9 @@ const ProductPage: React.FC = () => {
                                                 {value['price']}
                                             </TableCell>
                                             <TableCell align="center">
-                                                <Button variant="outlined" size='small' startIcon={<EditIcon />}>Edit</Button>
+                                                <Button variant="outlined" size='small' startIcon={<EditIcon />} onClick={() => handleEdit(value['_id'])}>
+                                                    Edit
+                                                </Button>
                                             </TableCell>
                                             <TableCell align="center" >
                                                 <Button variant="outlined" startIcon={<DeleteIcon />} size='small' onClick={() => handleDelete(value['_id'])}>
@@ -246,8 +262,18 @@ const ProductPage: React.FC = () => {
                     <Modal open={open} onClose={closeHandler}>
                         <Paper variant="outlined" sx={{ maxWidth: "md", width: 410, paddingY: 2, position: "absolute", top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
                             <Stack spacing={2} width={400} margin={"auto"} marginTop={2}>
-                                <AddProductPage/>
+                                <AddProductPage />
                                 <Button onClick={closeHandler} variant="outlined" fullWidth size="small">Close</Button>
+                            </Stack>
+                        </Paper>
+                    </Modal>
+                </div>
+                <div>
+                    <Modal open={eopen} onClose={handleEditClose}>
+                        <Paper variant="outlined" sx={{ maxWidth: "md", width: 410, paddingY: 2, position: "absolute", top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+                            <Stack spacing={2} width={400} margin={"auto"} marginTop={2}>
+                                <EditProductPage pid={pid} />
+                                <Button onClick={handleEditClose} variant="outlined" fullWidth size="small">Close</Button>
                             </Stack>
                         </Paper>
                     </Modal>
