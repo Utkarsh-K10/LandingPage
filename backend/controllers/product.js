@@ -35,7 +35,7 @@ exports.getAllproducts = async (req, res) => {
             res.status(201).json(doc)
         })
         .catch((err) => {
-            res.status(404).json({ error: err })
+            res.status(404).json(err)
         })
 }
 

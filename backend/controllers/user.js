@@ -58,7 +58,7 @@ exports.login = async (req, res) => {
             }
             if (!(user.authenticate(password))) {
                 return res.status(401).json({
-                    error: "invalid email or password"
+                    error: "invalid password"
                 })
             }
             // jwt generation
